@@ -78,14 +78,16 @@ export var achievement1 = new Achievement({
 		}
 	} 
 });
-// export var achievement7 = new Achievement({
-// 	name:"IDFB 1: Welcome Back",
-// 	description:"Load your save",
-// 	achieved:false,
-// 	almost:false,
-// 	announced:false
-// }); // this achievement is completed in the construction.ts load function.
-// export var ae7 = new AchievementEffect({effect:function(){}});
+export var achievement7 = new Achievement({
+	name:"IDFB 1: Welcome Back",
+	description:"Load your save",
+	achieved:false,
+	almost:false,
+	announced:false
+}); // this achievement is completed in the construction.ts load function.
+export var ae7 = new AchievementEffect({effect:function(){
+	
+}});
 export var achievement2 = new Achievement({
 	name:"Multi-level Madness",
 	description:"Have 5 Layers",

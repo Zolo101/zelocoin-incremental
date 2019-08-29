@@ -1,5 +1,6 @@
 import * as Zeloinc from "./construction"; // Zelo Incremental Classes and Functions File
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
+import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
 var themes = [["light","Light Theme"],["dark","Dark Theme"],
 				["hacker","Hacker Theme"],["modern","Modern Theme"]/*,["fancy","Fancy Theme"]*/,["minimal","Minimal Theme"]];
 var themenum = 0;

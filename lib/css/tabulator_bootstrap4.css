@@ -237,6 +237,7 @@
   white-space: nowrap;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
 .tabulator .tabulator-tableHolder:focus {

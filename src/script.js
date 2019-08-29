@@ -72,14 +72,15 @@ define("achievements", ["require", "exports", "construction", "../lib/anime.min.
             }
         }
     });
-    // export var achievement7 = new Achievement({
-    // 	name:"IDFB 1: Welcome Back",
-    // 	description:"Load your save",
-    // 	achieved:false,
-    // 	almost:false,
-    // 	announced:false
-    // }); // this achievement is completed in the construction.ts load function.
-    // export var ae7 = new AchievementEffect({effect:function(){}});
+    exports.achievement7 = new Achievement({
+        name: "IDFB 1: Welcome Back",
+        description: "Load your save",
+        achieved: false,
+        almost: false,
+        announced: false
+    }); // this achievement is completed in the construction.ts load function.
+    exports.ae7 = new AchievementEffect({ effect: function () {
+        } });
     exports.achievement2 = new Achievement({
         name: "Multi-level Madness",
         description: "Have 5 Layers",
@@ -211,6 +212,12 @@ define("achievements", ["require", "exports", "construction", "../lib/anime.min.
     }
     exports.ChangeAchievements = ChangeAchievements;
 });
+define("prestige", ["require", "exports", "../lib/break_infinity.min.js"], function (require, exports, Decimal) {
+    "use strict";
+    exports.__esModule = true;
+    exports.zinc = new Decimal(0); //1% coin boost
+    exports.zirconium = new Decimal(0); //currency for prestige shop
+});
 define("construction", ["require", "exports", "../lib/break_infinity.min.js", "../lib/ad-notations.min.js", "achievements"], function (require, exports, Decimal, ADNotations, ZIA) {
     "use strict";
     exports.__esModule = true;
@@ -220,7 +227,7 @@ define("construction", ["require", "exports", "../lib/break_infinity.min.js", ".
     exports.money = new Decimal(0);
     exports.ps = new Decimal(0);
     exports.buffer = new Decimal(0);
-    exports.VERSION = "1.1.2";
+    exports.VERSION = "1.1.3";
     exports.scientificwhen = new Decimal(1e+5);
     var Layer = /** @class */ (function () {
         function Layer(linfo) {
@@ -235,7 +242,6 @@ define("construction", ["require", "exports", "../lib/break_infinity.min.js", ".
     }());
     exports.Layer = Layer;
     exports.layers[0] = new Layer({ id: 1, cost: new Decimal(2), amount: new Decimal(0) });
-    exports.layers[1] = new Layer({ id: 2, cost: new Decimal(100), amount: new Decimal(0) });
     function LayerCheck(linfo) {
         if (exports.zelocoin.greaterThanOrEqualTo(linfo.cost)) {
             exports.zelocoin = exports.zelocoin.minus(linfo.cost);
@@ -287,11 +293,11 @@ define("construction", ["require", "exports", "../lib/break_infinity.min.js", ".
             if (localStorage.getItem("version") != exports.VERSION) {
                 window.alert("Just to let you know, this save is from version " + localStorage.getItem("version") + " so some things may/may not work. To fix this, you can press the save button to update your save to the correct version.");
             }
-            // console.log(ZIA.achievement7.ainfo.achieved);
-            // if (!ZIA.achievement7.ainfo.achieved) {
-            // 	ZIA.achievement7.ainfo.achieved = true;
-            // 	console.log(ZIA.achievement7.ainfo.achieved);
-            // }
+            if (!ZIA.achievements[3].achieved) { // keep an eye out for this
+                ZIA.achievements[3].achieved = true;
+                console.log(ZIA.achievements[3].achieved);
+                ZIA.AchievementCheck();
+            }
         }
     }
     exports.Load = Load;
@@ -299,8 +305,8 @@ define("construction", ["require", "exports", "../lib/break_infinity.min.js", ".
         exports.ps = exports.ps.minus(exports.ps);
         for (var i = exports.layers.length - 1; i >= 0; i--) {
             var flinfo = exports.layers[i].linfo;
-            exports.buffer = exports.buffer.add(flinfo.amount); //times(flinfo.amount);
-            //buffer = buffer.times(flinfo.amount); //quick and fast numbers, for debugging
+            exports.buffer = exports.buffer.add(flinfo.amount);
+            //buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
             if (i != exports.layers.length - 1) {
                 //console.log(layers[i+1]);
                 flinfo.amount = flinfo.amount.plus(exports.layers[i + 1].linfo.amount);
@@ -316,12 +322,9 @@ define("construction", ["require", "exports", "../lib/break_infinity.min.js", ".
     }
     exports.Tick = Tick;
     function UpdateLayer(linfo) {
-        if (linfo.cost.greaterThanOrEqualTo(exports.scientificwhen)) {
-            document.getElementById("layer" + linfo.id).innerHTML = "<b>" + scientific.format(linfo.amount, 2, 0) + "</b><br>Layer " + linfo.id + "<br>" + scientific.format(linfo.cost, 2, 0) + " Zelocoin";
-        }
-        else {
-            document.getElementById("layer" + linfo.id).innerHTML = "<b>" + linfo.amount.toString() + "</b><br>Layer " + linfo.id + "<br>" + linfo.cost.toNumber() + " Zelocoin";
-        }
+        var clinfo = (linfo.cost.greaterThanOrEqualTo(exports.scientificwhen)) ? scientific.format(linfo.cost, 2, 0) : linfo.cost.toNumber();
+        var alinfo = (linfo.amount.greaterThanOrEqualTo(exports.scientificwhen)) ? scientific.format(linfo.amount, 2, 0) : linfo.amount.toNumber();
+        document.getElementById("layer" + linfo.id).innerHTML = "<b>" + alinfo + "</b><br>Layer " + linfo.id + "<br>" + clinfo + " Zelocoin";
     }
     exports.UpdateLayer = UpdateLayer;
     function UpdateZelocoins() {

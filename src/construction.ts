@@ -3,6 +3,7 @@ import Decimal = require("../lib/break_infinity.min.js");
 import ADNotations = require("../lib/ad-notations.min.js");
 
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
+import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
 const scientific = new ADNotations.ScientificNotation();
 
 export var layers = [];
@@ -10,7 +11,7 @@ export var zelocoin = new Decimal(2);
 export var money = new Decimal(0);
 export var ps = new Decimal(0);
 export var buffer = new Decimal(0);
-export var VERSION = "1.1.2";
+export var VERSION = "1.1.3";
 
 export var scientificwhen = new Decimal(1e+5);
 
@@ -25,7 +26,6 @@ export class Layer {
 }
 
 layers[0] = new Layer({id:1,cost: new Decimal(2),amount: new Decimal(0)});
-layers[1] = new Layer({id:2,cost: new Decimal(100),amount: new Decimal(0)});
 
 export function LayerCheck(linfo: LayerInfo) {
 	if (zelocoin.greaterThanOrEqualTo(linfo.cost)) {
@@ -82,13 +82,13 @@ export function Load() {
 		document.getElementById("achievementbutton").innerHTML = "Achievements " + ZIA.completedAchievements.length + "/" + ZIA.achievements.length;
 		UpdateZelocoins();
 		if (localStorage.getItem("version") != VERSION) {
-			window.alert("Just to let you know, this save is from version " + localStorage.getItem("version") + " so some things may/may not work. To fix this, you can press the save button to update your save to the correct version.")
+			window.alert("Just to let you know, this save is from version " + localStorage.getItem("version") + " so some things may/may not work. To fix this, you can press the save button to update your save to the correct version.");
 		}
-		// console.log(ZIA.achievement7.ainfo.achieved);
-		// if (!ZIA.achievement7.ainfo.achieved) {
-		// 	ZIA.achievement7.ainfo.achieved = true;
-		// 	console.log(ZIA.achievement7.ainfo.achieved);
-		// }
+		if (!ZIA.achievements[3].achieved) { // keep an eye out for this
+			ZIA.achievements[3].achieved = true;
+			console.log(ZIA.achievements[3].achieved);
+			ZIA.AchievementCheck();
+		}
 	}
 }
 
@@ -96,8 +96,8 @@ export function Tick() {
 	ps = ps.minus(ps);
 	for (var i = layers.length-1; i >= 0; i--) {
 		let flinfo = layers[i].linfo;
-		buffer = buffer.add(flinfo.amount);//times(flinfo.amount);
-		//buffer = buffer.times(flinfo.amount); //quick and fast numbers, for debugging
+		buffer = buffer.add(flinfo.amount);
+		//buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
 		if (i != layers.length-1) {
 			//console.log(layers[i+1]);
 			flinfo.amount = flinfo.amount.plus(layers[i+1].linfo.amount);
@@ -113,11 +113,9 @@ export function Tick() {
 }
 
 export function UpdateLayer(linfo: LayerInfo) {
-	if (linfo.cost.greaterThanOrEqualTo(scientificwhen)) {
-		document.getElementById("layer"+linfo.id).innerHTML = "<b>" + scientific.format(linfo.amount,2,0) + "</b><br>Layer " + linfo.id + "<br>" + scientific.format(linfo.cost,2,0) + " Zelocoin";
-	} else {
-		document.getElementById("layer"+linfo.id).innerHTML = "<b>" + linfo.amount.toString() + "</b><br>Layer " + linfo.id + "<br>" + linfo.cost.toNumber() + " Zelocoin";
-	}
+	let clinfo = (linfo.cost.greaterThanOrEqualTo(scientificwhen)) ? scientific.format(linfo.cost,2,0) : linfo.cost.toNumber();
+	let alinfo = (linfo.amount.greaterThanOrEqualTo(scientificwhen)) ? scientific.format(linfo.amount,2,0) : linfo.amount.toNumber();
+	document.getElementById("layer"+linfo.id).innerHTML = "<b>" + alinfo + "</b><br>Layer " + linfo.id + "<br>" + clinfo + " Zelocoin";
 }
 
 export function UpdateZelocoins() {
