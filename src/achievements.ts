@@ -1,4 +1,5 @@
-import * as Zeloinc from "./construction"; // Zelo Incremental Classes and Functions  File
+import * as ZIC from "./construction"; // Zelo Incremental Classes and Functions  File
+import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
 import anime = require("../lib/anime.min.js");
 import Decimal = require("../lib/break_infinity.min.js");
 import ADNotations = require("../lib/ad-notations.min.js");
@@ -47,7 +48,7 @@ export var achievement6 = new Achievement({
 	announced:false
 }); export var ae6 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.layers.length >= 3) {
+		if (ZIC.layers.length >= 3) {
 			achievement6.ainfo.achieved = true;
 		}
 	} 
@@ -60,7 +61,7 @@ export var achievement8 = new Achievement({
 	announced:false
 }); export var ae8 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.zelocoin.greaterThanOrEqualTo("101")) {
+		if (ZIC.zelocoin.greaterThanOrEqualTo("101")) {
 			achievement8.ainfo.achieved = true;
 		}
 	} 
@@ -73,7 +74,7 @@ export var achievement1 = new Achievement({
 	announced:false
 }); export var ae1 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.zelocoin.greaterThanOrEqualTo(Zeloinc.scientificwhen)) {
+		if (ZIC.zelocoin.greaterThanOrEqualTo(ZIC.scientificwhen)) {
 			achievement1.ainfo.achieved = true;
 		}
 	} 
@@ -85,19 +86,30 @@ export var achievement7 = new Achievement({
 	almost:false,
 	announced:false
 }); // this achievement is completed in the construction.ts load function.
-export var ae7 = new AchievementEffect({effect:function(){
-	
-}});
+export var ae7 = new AchievementEffect({effect:function(){}});
 export var achievement2 = new Achievement({
 	name:"Multi-level Madness",
-	description:"Have 5 Layers",
+	description:"Have 6 Layers",
 	achieved:false,
 	almost:false,
 	announced:false
 }); export var ae2 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.layers.length >= 6) { // make sure layer 5 is brought as that is when 6 shows up.
+		if (ZIC.layers.length >= 7) { // make sure layer 6 is brought as that is when 6 shows up.
 			achievement2.ainfo.achieved = true;
+		}
+	}
+});
+export var achievement9 = new Achievement({
+	name:"Zinc Battery",
+	description:"Gain zinc.",
+	achieved:false,
+	almost:false,
+	announced:false
+}); export var ae9 = new AchievementEffect({
+	effect:function(){
+		if (ZIP.zinc >= 1) { // make sure layer 5 is brought as that is when 6 shows up.
+			achievement9.ainfo.achieved = true;
 		}
 	}
 });
@@ -109,10 +121,10 @@ export var achievement3 = new Achievement({
 	announced:false
 }); export var ae3 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.layers.length >= 10) {
+		if (ZIC.layers.length >= 10) {
 			let layershaveten = 0;
-			for (var i = 0; i < Zeloinc.layers.length; ++i) {
-				if (Zeloinc.layers[i].linfo.amount >= 10) {
+			for (var i = 0; i < ZIC.layers.length; ++i) {
+				if (ZIC.layers[i].linfo.amount >= 10) {
 					layershaveten++;
 				}
 			}
@@ -123,6 +135,20 @@ export var achievement3 = new Achievement({
 		}
 	}
 });
+export var achievement10 = new Achievement({
+	name:"Zirconium Collecter",
+	description:"Gain Zirconium.",
+	achieved:false,
+	almost:false,
+	announced:false
+}); export var ae10= new AchievementEffect({
+	effect:function(){
+		if (ZIP.zirconium >= 1) {
+			achievement10.ainfo.achieved = true;
+		}
+	}
+});
+
 export var achievement4 = new Achievement({
 	name:"Inanimate Infinity",
 	description:"Go past 1e309, the biggest number Javascript can handle.",
@@ -131,7 +157,7 @@ export var achievement4 = new Achievement({
 	announced:false
 }); export var ae4 = new AchievementEffect({
 	effect:function(){
-		if (Zeloinc.zelocoin.greaterThanOrEqualTo("1e309")) {
+		if (ZIC.zelocoin.greaterThanOrEqualTo("1e309")) {
 			achievement4.ainfo.achieved = true;
 		}
 	}
@@ -201,10 +227,6 @@ export function LoadAchievements() {
 	//console.log(ZIA.completedAchievements);
 	//console.log(ZIA.achievementsAlmost);
 	//console.log(ZIA.achievements);
-	let achievementHelp = document.createElement("p");
-	achievementHelp.onclick = function(){};
-	document.getElementById("achievements").appendChild(achievementHelp);
-	achievementHelp.innerHTML = "Normal means not completed, Bold means almost completed & Green means completed.";
 	
 	for (var i = 0; i < achievements.length; i++) {
 		achievementTable.updateOrAddData([{id:i, name:achievements[i].name,

@@ -4,14 +4,17 @@ import ADNotations = require("../lib/ad-notations.min.js");
 
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
 import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
-const scientific = new ADNotations.ScientificNotation();
+export const scientific = new ADNotations.ScientificNotation();
 
 export var layers = [];
-export var zelocoin = new Decimal(2);
-export var money = new Decimal(0);
+export var zelocoin = new Decimal(2); 
 export var ps = new Decimal(0);
 export var buffer = new Decimal(0);
-export var VERSION = "1.1.3";
+export var VERSION = "1.2";
+export var SAVEVERSION = "1.0";
+
+export var coinboost = new Decimal(1);
+export var maxlayer = new Decimal(5);
 
 export var scientificwhen = new Decimal(1e+5);
 
@@ -28,6 +31,10 @@ export class Layer {
 layers[0] = new Layer({id:1,cost: new Decimal(2),amount: new Decimal(0)});
 
 export function LayerCheck(linfo: LayerInfo) {
+	if (layers[linfo.id] == null && !maxlayer.greaterThanOrEqualTo(layers.length)) {
+		window.alert("(temporary message) You've reached the max layer! Prestige to gain Zinc/Zirconium which will allow you to up the max layer limit.");
+		return;
+	}
 	if (zelocoin.greaterThanOrEqualTo(linfo.cost)) {
 		zelocoin = zelocoin.minus(linfo.cost);
 		linfo.amount = linfo.amount.plus(1);
@@ -52,11 +59,18 @@ export function Save() {
 		localStorage.setItem("layers",JSON.stringify(layers));
 		localStorage.setItem("zelocoin",zelocoin);
 		localStorage.setItem("ps",ps);
+
+		localStorage.setItem("coinboost",coinboost);
+		localStorage.setItem("maxlayer",maxlayer);
+
+		localStorage.setItem("zinc",ZIP.zinc);
+		localStorage.setItem("zirconium",ZIP.zirconium);
+
 		localStorage.setItem("achievements",JSON.stringify(ZIA.achievements));
 		//console.log(ZIA.achievements);
 		localStorage.setItem("completedAchievements",JSON.stringify(ZIA.completedAchievements));
 		localStorage.setItem("theme",document.body.getAttribute("theme"));	
-		localStorage.setItem("version",VERSION); // remember to change this each version	
+		localStorage.setItem("version",SAVEVERSION); // remember to change this each version	
 	}
 }
 
@@ -74,15 +88,25 @@ export function Load() {
 		}
 		zelocoin = new Decimal(localStorage.getItem("zelocoin"));
 		ps = new Decimal(localStorage.getItem("ps"));
+
+		coinboost = new Decimal(localStorage.getItem("coinboost"));
+		maxlayer = new Decimal(localStorage.getItem("maxlayer"));
+
+		ZIP.LocalStoragePrestige();
 		ZIA.ChangeAchievements(ZIA.achievements,JSON.parse(localStorage.getItem("achievements")));
 		ZIA.ChangeAchievements(ZIA.completedAchievements,JSON.parse(localStorage.getItem("completedAchievements")));
 		//console.log(ZIA.achievements);
 		//console.log(JSON.parse(localStorage.getItem("achievements")));
-		document.body.setAttribute("theme",localStorage.getItem("theme"));
+
+		if (localStorage.getItem("theme") != "light") {
+			document.getElementById("css").setAttribute("rel","stylesheet");
+			document.getElementById("css").setAttribute("href","../lib/css/themes/" + localStorage.getItem("theme") + ".css");
+		}
+
 		document.getElementById("achievementbutton").innerHTML = "Achievements " + ZIA.completedAchievements.length + "/" + ZIA.achievements.length;
 		UpdateZelocoins();
-		if (localStorage.getItem("version") != VERSION) {
-			window.alert("Just to let you know, this save is from version " + localStorage.getItem("version") + " so some things may/may not work. To fix this, you can press the save button to update your save to the correct version.");
+		if (localStorage.getItem("version") != SAVEVERSION) {
+			window.alert("The save-version your save is on is '" + localStorage.getItem("version") + "'although the current save-version is '" + SAVEVERSION + "'. Things may/may not work in your save. (for example newly updated achievements wont be in your save.) In the future, to potentially fix this, press the save button to update the save-version.");
 		}
 		if (!ZIA.achievements[3].achieved) { // keep an eye out for this
 			ZIA.achievements[3].achieved = true;
@@ -96,7 +120,7 @@ export function Tick() {
 	ps = ps.minus(ps);
 	for (var i = layers.length-1; i >= 0; i--) {
 		let flinfo = layers[i].linfo;
-		buffer = buffer.add(flinfo.amount);
+		buffer = buffer.plus(flinfo.amount).times(coinboost);
 		//buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
 		if (i != layers.length-1) {
 			//console.log(layers[i+1]);
@@ -113,20 +137,42 @@ export function Tick() {
 }
 
 export function UpdateLayer(linfo: LayerInfo) {
-	let clinfo = (linfo.cost.greaterThanOrEqualTo(scientificwhen)) ? scientific.format(linfo.cost,2,0) : linfo.cost.toNumber();
-	let alinfo = (linfo.amount.greaterThanOrEqualTo(scientificwhen)) ? scientific.format(linfo.amount,2,0) : linfo.amount.toNumber();
+	let clinfo = (DecimalFormat(linfo.cost)) ? scientific.format(linfo.cost,2,0) : linfo.cost.toNumber();
+	let alinfo = (DecimalFormat(linfo.amount)) ? scientific.format(linfo.amount,2,0) : linfo.amount.toNumber();
 	document.getElementById("layer"+linfo.id).innerHTML = "<b>" + alinfo + "</b><br>Layer " + linfo.id + "<br>" + clinfo + " Zelocoin";
 }
 
 export function UpdateZelocoins() {
-	if (zelocoin.greaterThanOrEqualTo(scientificwhen)) {
+	if (DecimalFormat(zelocoin)) {
 		document.getElementById("coin").innerHTML = scientific.format(zelocoin,2,0) + " zelocoins";
 	} else {
 		document.getElementById("coin").innerHTML = zelocoin.toNumber() + " zelocoins";
 	}
-	if (ps.greaterThanOrEqualTo(scientificwhen)) {
+	if (DecimalFormat(ps)) {
 		document.getElementById("ps").innerHTML = "You are making " + scientific.format(ps,2,0) + " (" + Decimal.div(ps,zelocoin).times(100).toNumber().toFixed(2) +"%) zelocoins.";
 	} else {
 		document.getElementById("ps").innerHTML = "You are making " + ps.toString()  + " (" + Decimal.div(ps,zelocoin).times(100).toNumber().toFixed(2) +"%) zelocoins.";
 	}
+}
+
+export function DecimalFormat(decimal: Decimal) {
+	if(decimal.greaterThanOrEqualTo(scientificwhen)) {
+		return true;
+	} else {return false};
+}
+
+export function PrestigeReset() { // this shouldn't be a function
+	zelocoin = zelocoin.minus(zelocoin).add(2);
+	ps = ps.minus(ps);
+	layers = [];
+	document.getElementById("layer").innerHTML = "";
+	layers[0] = new Layer({id:1,cost: new Decimal(2),amount: new Decimal(0)});
+}
+
+export function CoinBoost(decimal: Decimal) { // or this
+	coinboost = coinboost.plus(decimal);
+}
+
+export function MaxLevelChange(decimal: Decimal) { // or this
+	maxlayer = maxlayer.plus(decimal);
 }

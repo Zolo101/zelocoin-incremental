@@ -1,4 +1,4 @@
-import * as Zeloinc from "./construction"; // Zelo Incremental Classes and Functions File
+import * as ZIC from "./construction"; // Zelo Incremental Classes and Functions File
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
 import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
 var themes = [["light","Light Theme"],["dark","Dark Theme"],
@@ -43,13 +43,13 @@ achievementNotify.id = "achievementnotify";
 achievementNotify.innerHTML = "Achievement Completed: ";
 
 let saveButton = document.createElement("button");
-saveButton.onclick = function(){Zeloinc.Save()};
+saveButton.onclick = function(){ZIC.Save()};
 document.getElementById("saving").appendChild(saveButton);
 saveButton.id = "savebutton";
 saveButton.innerHTML = "Save";
 
 let loadButton = document.createElement("button");
-loadButton.onclick = function(){Zeloinc.Load()};
+loadButton.onclick = function(){ZIC.Load()};
 document.getElementById("saving").appendChild(loadButton);
 loadButton.id = "loadbutton";
 loadButton.innerHTML = "Load";
@@ -58,8 +58,9 @@ var interval = 0;
 
 window.setInterval(function () {
 	interval++;
-	Zeloinc.Tick();
-	ZIA.AlmostAchievementCheck();
+	ZIC.Tick();
+	ZIP.UpdateGains();
+	//ZIA.AlmostAchievementCheck();
 	if (interval >= 5) {
 		interval = 0;
 		ZIA.AchievementCheck();
@@ -72,7 +73,13 @@ function changeTheme() {
 		themeButton.innerHTML = themes[0][1];
 	} else {
 		themeButton.innerHTML = themes[themenum][1];
-	} 
+	}
+	if (themes[themenum][0] != "light") {
+		document.getElementById("css").setAttribute("rel","stylesheet");
+		document.getElementById("css").setAttribute("href","../lib/css/themes/" + themes[themenum][0] + ".css");
+	} else {
+		document.getElementById("css").setAttribute("rel","stylesheet alternate");
+	}
 	document.body.setAttribute("theme",themes[themenum][0]);
 	themenum++;
 }

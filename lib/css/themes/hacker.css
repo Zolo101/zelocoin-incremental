@@ -1,0 +1,66 @@
+button {
+	background-color: #666;
+	font-family: monospace;
+	border: none;
+}
+
+button:hover {
+	background-color: #444;
+}
+
+#coin {
+	color: red;
+	text-shadow: none;
+}
+
+:not(.tabulator-col-title,.tabulator-cell) {
+	color: lime;
+	font-family: monospace;
+}
+
+p {
+	color: lime;
+	font-family: monospace;
+}
+
+body {
+	background-color: #000;
+}
+
+a {
+	color: mediumseagreen;
+}
+
+#zinc {
+	color: #AAA;
+}
+
+#zirconium {
+	color: #999;
+}
+
+.tabulator-col-title,.tabulator-cell {
+	color: #BBB;
+}
+
+.tabulator-col-content,.tabulator-cell {
+	background-color: #222;
+}
+
+.tabulator,.tabulator-header {
+	border-top: 1px #666 !important; 
+	border-bottom: 2px #666 !important; 
+}
+
+.tabulator {
+	background-color: #444 !important;
+	font-family: monospace;
+}
+
+.tabulator-row {
+ 	border-bottom: 1px #FFF !important; 
+}
+
+.tabulator-col-title {
+	font-size: 14px;
+}

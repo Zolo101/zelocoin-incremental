@@ -1,0 +1,16 @@
+button {
+	background: lightgray;
+	border: 1px gray;
+}
+
+button:hover {
+	background-color: darkgray;
+}
+
+#coin {
+	text-shadow: none;
+}
+
+:not(p,div) {
+	all: initial;
+}

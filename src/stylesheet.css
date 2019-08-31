@@ -30,20 +30,26 @@ button:focus {
 	transition: all 0.4s;
 }
 
+#game {
+	display: flex;
+}
+
 #zelocoin {
 	border-right: 1px solid #AAA;
 	padding-right: 5px;
 	text-align: center;
+	flex-grow: 2;
 }
 
-/*#zelocoin,#prestige {
-	float: left;
+#zelocoin,#prestige {
+
 }
 
 #prestige {
 	padding-left: 5px;
-	min-width: 10%;
-}*/
+	/*min-width: 10%;*/
+	flex-grow: 1;
+}
 
 #version {
 	font-size: calc(4px + 1vw + 0.5vh);
@@ -88,66 +94,12 @@ button:focus {
 	color: #555;
 }
 
+#zinc,#zirconium {
+	font-size: 18px;
+}
+
 /*#achievements {
 }*/
-
-[theme="dark"] #coin {
-	color: red;
-	text-shadow: red 0 0 5px;
-}
-
-[theme="dark"] p {
-	color: #BBB;
-}
-
-body[theme="dark"] {
-	background-color: #333;
-}
-
-[theme="dark"] a {
-	color: red;
-}
-
-[theme="dark"] button {
-	filter: brightness(0.75);
-}
-
-[theme="hacker"] button:hover {
-	background-color: #444;
-}
-
-[theme="hacker"] #coin {
-	color: red;
-	text-shadow: none;
-}
-
-[theme="hacker"]:not(.tabulator-col-title,.tabulator-cell) {
-	color: lime;
-	font-family: monospace;
-}
-
-[theme="hacker"] p {
-	color: lime;
-	font-family: monospace;
-}
-
-[theme="hacker"] {
-	background-color: #000;
-}
-
-[theme="hacker"] button {
-	background-color: #666;
-	font-family: monospace;
-	border: none;
-}
-
-[theme="hacker"] a {
-	color: mediumseagreen;
-}
-
-[theme="modern"] * {
-	font-family: sans-serif;
-}
 
 /*[theme="fancy"]:not(button) {
 	font: italic 20px "Fira Sans", serif;
@@ -157,19 +109,3 @@ body[theme="dark"] {
 	font: italic 14px "Fira Sans", serif;
 }
 */
-[theme="minimal"]:not(p,div) {
-	all: initial;
-}
-
-[theme="minimal"] button {
-	background: lightgray;
-	border: 1px gray;
-}
-
-[theme="minimal"] button:hover {
-	background-color: darkgray;
-}
-
-[theme="minimal"] #coin {
-	text-shadow: none;
-}

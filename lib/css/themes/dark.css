@@ -1,0 +1,49 @@
+#coin {
+	color: red;
+	text-shadow: red 0 0 5px;
+}
+
+p {
+	color: #BBB;
+}
+
+body {
+	background-color: #333;
+}
+
+a {
+	color: red;
+}
+
+button {
+	filter: brightness(0.75);
+}
+
+#zinc {
+	color: #999;
+}
+
+#zirconium {
+	color: #888;
+}
+
+.tabulator-col-title,.tabulator-cell {
+	color: #BBB;
+}
+
+.tabulator-col-content,.tabulator-cell {
+	background-color: #444;
+}
+
+.tabulator,.tabulator-header {
+	border-top: 1px #666 !important; 
+	border-bottom: 2px #666 !important; 
+}
+
+.tabulator {
+	background-color: #444 !important;
+}
+
+.tabulator-row {
+ 	border-bottom: 1px #FFF !important; 
+}

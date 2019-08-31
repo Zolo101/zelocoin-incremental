@@ -3,9 +3,27 @@
 - Removal
 
 Upcoming
-- Simple Prestige. Convert your coins into either Zinc or Zirconium for a coin boost or cost reduction.
 - Optimisation.
 - Buy 1x,10x,Max button.
+
+1.2 (31/08/2019)
++ Simple Prestige. Convert your coins into either Zinc or Zirconium for a zelocoin per second boost or to increase the max layer.
++ Favicon icon for the website.
+
+* Right now zinc & zirconium is insanely OP, so 1.2.1 will balance them out & add more things to buy.
+
+-- How prestiges work -----------------------------------
+
+Each zinc gives you an 100% PER SECOND boost.
+Zirconium can currently be used to Increase Max Layer, which allows for more zelocoins.
+
+You need 1e10 zelocoins to obtain zinc.
+You need 1e8 zelocoins PER SECOND to obtain zirconium. In order to gain the zinc/zirconium, you must prestig.
+
+---------------------------------------------------------
+
+* The CSS themes has now been seperated into files.
+* Send me your themes and if they are good enough, i'll add them into the game!
 
 1.1.3 (29/08/2019)
 + You now start with 1 layer
