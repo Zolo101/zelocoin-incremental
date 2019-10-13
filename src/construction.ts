@@ -225,7 +225,7 @@ export function Tick() {
 		// let gradient = "linear-gradient(0deg, rgba(" + color1d.toString() + ",221," + color1d.toString() + ",1) 0%, rgba(" + color2d.toString() + ",247," + color2d.toString() + ",1) 100%);";
 		// document.getElementById("layer" + flinfo.id).style.background = gradient;
 		//console.log(document.getElementById("layer" + flinfo.id).style.background);
-		buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
+		//buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
 		if (i != layers.length-1) {
 			//console.log(layers[i+1]);
 			flinfo.amount = flinfo.amount.plus(layers[i+1].linfo.amount.times(layers[i+1].linfo.percent));
