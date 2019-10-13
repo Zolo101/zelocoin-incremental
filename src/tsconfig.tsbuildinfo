@@ -1,0 +1,117 @@
+{
+  "program": {
+    "fileInfos": {
+      "c:/users/adam&coral/appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "1f753cee573dea40df8a9dc873fef5566957b19ad513874f6643d8dfb14842d0",
+        "signature": "1f753cee573dea40df8a9dc873fef5566957b19ad513874f6643d8dfb14842d0"
+      },
+      "c:/users/adam&coral/appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "973df4e41aea3780ce77073777d37dd5896f684124f4c42409f3a832133837a4",
+        "signature": "973df4e41aea3780ce77073777d37dd5896f684124f4c42409f3a832133837a4"
+      },
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts": {
+        "version": "7bf0bf300f4e31670d4aa7e2e3d086fb15b2fa7825144774da4c60a83791006a",
+        "signature": "8b478410b3140faba2f388edaf1f111f9a4034e3c8fdffeb9a94d1bedadee1de"
+      },
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts": {
+        "version": "ff051f47c170ee907bf6d306e2e1ac06c5f359207caae86fd6145157e1837997",
+        "signature": "1a445afc0232d390cdc3c3a39450d7a111bd8a6f5967a6601d3725f02d0e2d17"
+      },
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts": {
+        "version": "daf57e8343da94f9116f623408f8964c2590080960cede460abbc41c1975d59a",
+        "signature": "0d77e69645d3dedf3c8f0bdc114102d5eb887606bdc748898be80e1d297a2cb9"
+      },
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/script.ts": {
+        "version": "48bef1e6931a979629a9451c89f21a8818769237a3a2eb9243ca7b955a3544ca",
+        "signature": "a7b87a1651853fd04a1c9f8b26f4be057c3a4289ba9e50a08e24e5206bff068d"
+      },
+      "c:/users/adam&coral/node_modules/@types/jquery/jquerystatic.d.ts": {
+        "version": "84c8e0dfd0d885abd37c1d213ef0b949dd8ef795291e7e7b1baadbbe4bc0f8a9",
+        "signature": "84c8e0dfd0d885abd37c1d213ef0b949dd8ef795291e7e7b1baadbbe4bc0f8a9"
+      },
+      "c:/users/adam&coral/node_modules/@types/jquery/jquery.d.ts": {
+        "version": "9d21da8939908dafa89d693c3e22aabeef28c075b68bb863257e631deef520f5",
+        "signature": "9d21da8939908dafa89d693c3e22aabeef28c075b68bb863257e631deef520f5"
+      },
+      "c:/users/adam&coral/node_modules/@types/jquery/misc.d.ts": {
+        "version": "c9b802f4a8d000893e2252b916fc88b6fa21dc4edcb798fdd8ddf6691647c8d4",
+        "signature": "c9b802f4a8d000893e2252b916fc88b6fa21dc4edcb798fdd8ddf6691647c8d4"
+      },
+      "c:/users/adam&coral/node_modules/@types/jquery/legacy.d.ts": {
+        "version": "8c4a3355af2c490a8af67c4ec304e970424a15ef648a3c3fbb3ee6634461e2cc",
+        "signature": "8c4a3355af2c490a8af67c4ec304e970424a15ef648a3c3fbb3ee6634461e2cc"
+      },
+      "c:/users/adam&coral/node_modules/@types/sizzle/index.d.ts": {
+        "version": "7ddac8a4ba398441cfd6d8a69380401378f122ee8cc2d848e6e32f4db2b6c876",
+        "signature": "7ddac8a4ba398441cfd6d8a69380401378f122ee8cc2d848e6e32f4db2b6c876"
+      },
+      "c:/users/adam&coral/node_modules/@types/jquery/index.d.ts": {
+        "version": "6739393f79c9a48ec82c6faa0d6b25d556daf3b6871fc4e5131f5445a13e7d15",
+        "signature": "6739393f79c9a48ec82c6faa0d6b25d556daf3b6871fc4e5131f5445a13e7d15"
+      }
+    },
+    "options": {
+      "incremental": true,
+      "target": 1,
+      "module": 2,
+      "lib": [
+        "lib.dom.d.ts",
+        "lib.es5.d.ts"
+      ],
+      "strict": false,
+      "esModuleInterop": true,
+      "configFilePath": "C:/Users/Adam&Coral/Documents/Lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/tsconfig.json"
+    },
+    "referencedMap": {
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts": [
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts"
+      ],
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts": [
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts"
+      ],
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts": [
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/script.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts"
+      ],
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/script.ts": [
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts",
+        "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts"
+      ],
+      "c:/users/adam&coral/node_modules/@types/jquery/index.d.ts": [
+        "c:/users/adam&coral/node_modules/@types/jquery/jquerystatic.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/jquery.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/misc.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/legacy.d.ts",
+        "c:/users/adam&coral/node_modules/@types/sizzle/index.d.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "c:/users/adam&coral/node_modules/@types/jquery/index.d.ts": [
+        "c:/users/adam&coral/node_modules/@types/jquery/jquerystatic.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/jquery.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/misc.d.ts",
+        "c:/users/adam&coral/node_modules/@types/jquery/legacy.d.ts",
+        "c:/users/adam&coral/node_modules/@types/sizzle/index.d.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": [
+      "c:/users/adam&coral/appdata/roaming/npm/node_modules/typescript/lib/lib.es5.d.ts",
+      "c:/users/adam&coral/appdata/roaming/npm/node_modules/typescript/lib/lib.dom.d.ts",
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/achievements.ts",
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/construction.ts",
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/script.ts",
+      "c:/users/adam&coral/node_modules/@types/jquery/jquerystatic.d.ts",
+      "c:/users/adam&coral/node_modules/@types/jquery/jquery.d.ts",
+      "c:/users/adam&coral/node_modules/@types/jquery/misc.d.ts",
+      "c:/users/adam&coral/node_modules/@types/jquery/legacy.d.ts",
+      "c:/users/adam&coral/node_modules/@types/sizzle/index.d.ts",
+      "c:/users/adam&coral/node_modules/@types/jquery/index.d.ts",
+      "c:/users/adam&coral/documents/lightshot/zelo owow/zelo's mtwow/zelocoin/incremental/src/prestige.ts"
+    ]
+  },
+  "version": "3.5.3"
+}

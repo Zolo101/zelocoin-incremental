@@ -8,15 +8,23 @@ p {
 }
 
 body {
-	background-color: #333;
+	background-color: #25292C;
 }
 
 a {
 	color: red;
 }
 
-button {
+button:not(.category), #themeform {
 	filter: brightness(0.75);
+}
+
+::-webkit-scrollbar {
+	background-color: #3A4045;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #657078;
 }
 
 #zinc {
@@ -32,16 +40,20 @@ button {
 }
 
 .tabulator-col-content,.tabulator-cell {
-	background-color: #444;
+	background-color: #3A4045;
 }
 
 .tabulator,.tabulator-header {
-	border-top: 1px #666 !important; 
-	border-bottom: 2px #666 !important; 
+	border-top: 1px #657078 !important; 
+	border-bottom: 2px #657078 !important;
+}
+
+.tabulator-headers {
+	background-color: #3A4045;
 }
 
 .tabulator {
-	background-color: #444 !important;
+	background-color: #3A4045 !important;
 }
 
 .tabulator-row {

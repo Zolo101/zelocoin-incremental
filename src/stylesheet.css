@@ -3,18 +3,35 @@
 	#ps {font-size: calc(25px);}
 	#layer {max-height: 40vh;overflow-y: auto;}
 	p,button {font-size: 20px;}
-	#achievements > p {
-		font-size: calc(5px + 0.5vw);
+	#main-game {
+		padding-top: calc(4%)!important;
+		/* padding-bottom: calc(4%)!important; */
 	}
+	/* body {background-color: #20AEE3;} */ /* test to make sure it works */
 }
 
-.tabulator {
-	text-align: center;
+#category-container {
+	/* border-bottom: 1px solid #999; */
+	padding: 5px;
 }
 
-button {
+.category {
 	font-size: calc(12.5px + 0.5vw);
+	border: none;
+	padding: 4px 6px;
+	margin: 2px 4px;
 }
+
+/* #zelocoin {
+	border-bottom: 1px solid #999;
+} */
+
+button:not(.category) {
+	font-size: calc(12.5px + 0.5vw);
+	background: linear-gradient(0deg, rgba(221,221,221,1) 0%, rgba(247,247,247,1) 100%);
+	border: 1px solid gray;
+	border-radius: 1px;
+} #boost {color: green;text-shadow: 1px 1px 2px greenyellow}
 
 button:hover {
 	cursor: pointer;
@@ -26,33 +43,178 @@ button:focus {
 	position: relative;
 }
 
-* {
+*:not(#alert):not(.psdiv) {
 	transition: all 0.4s;
 }
 
-#game {
-	display: flex;
+#alert {
+	/* opacity: 0; */
+	display: none;
+	position: absolute;
+	left: 5%;
+	top: 30%;
+	width: 90%;
+	height: 40%;
+	background-color: #999999f3;
+	z-index: 2;
+	overflow-y: auto;
 }
 
-#zelocoin {
-	border-right: 1px solid #AAA;
+#alert img {
+	width: calc(64px + 2vw);
+	height: calc(64px + 2vw);
+	min-width: 64px;
+	min-height: 64px;
+}
+
+.achievementsdiv {
+	border: 1px solid #AAA;
+	display: flex;
+	flex-direction: row;
+}
+
+.achievementstextdiv {
+	max-width: 100%;
+}
+
+.achievementstextdiv p {
+	font-size: calc(18px + 0.5vw);
+	/* max-width: 75%; */
+	text-align: center;	
+} .achievementitle {text-align: center;}
+
+#verisona,#notices {font-weight: 800;}
+
+#verisona:hover,#notices:hover {
+	color: #5002D9;
+	cursor: pointer;
+}
+
+#cellInventory {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 50%;
+}
+
+#inventory {
+	display: flex;
+	flex-wrap: wrap;
+} #inventory div {margin: 2px;}
+
+#inventoryDescription {
+	max-width: calc(250px + 1vw);
+	/* max-width: 300px; */
+	min-height: 90%;
+	border: 1px solid #555;
+	
+	position: absolute;
+	right: 0px;
+}
+
+#inventoryDescriptionTitle {
+	text-align: center;
+}
+
+#inventoryDescriptionImage {
+	display: table;
+	margin-right: auto;
+ 	margin-left: auto;
+}
+
+.celldiv {
+	width: calc(64px + 1vw);
+	height: calc(64px + 1vw);
+	/* line-height: calc(64px + 1vw); */
+	padding: 2px;
+	border: 1px solid #555;
+	color: #000;
+}
+
+/* .celldivamount {position: relative;bottom: 0;right: 0;} */
+
+#pshop {display: flex;}
+
+.psdiv {
+	width: calc(96px + 1vw);
+	height: calc(64px + 1vw);
+	background-color: #666;
+	padding: 2px;
+	margin: 2px;
+} #pshophelp {position: absolute;bottom: 0;}
+
+.psdivtitle, .psdivdesc {
+	color: #000;
+	margin: 0px;
+}
+
+#main-game {
+	padding-top: calc(12%);
+	/* padding-bottom: calc(10%); */
+	border-bottom: 1px solid #999;
+	border-top: 1px solid #999;
+}
+
+#maxlayer {order: 1;}
+#themeform {order: 0;}
+#saving {order: 2;}
+#achievementnotify {order: 3;}
+
+#other {
+	display: -webkit-box;
+	flex-direction: row;
+	padding-top: calc(10%);
+} #other * {margin: 2px;}
+
+#zelocoin:not(#other) {
+	/* border-right: 1px solid #AAA; */
 	padding-right: 5px;
 	text-align: center;
-	flex-grow: 2;
 }
 
-#zelocoin,#prestige {
-
+#layer button {
+	min-width: calc(100px + 1vw);
+	min-height: calc(75px + 1vh);
+	margin: 1px;
 }
 
-#prestige {
+/* #prestige {
 	padding-left: 5px;
-	/*min-width: 10%;*/
+	min-width: 10%;
 	flex-grow: 1;
+} */
+
+#prestigetext {
+	text-align: center;
+    font-weight: bold;
+    font-size: x-large;
 }
 
-#version {
-	font-size: calc(4px + 1vw + 0.5vh);
+#prestigedivbutton {
+	width: 200px;
+	height: 75px;
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
+	font-size: calc(16px + 0.5vw + 0.25vh);
+}
+
+#version, #maxlayer, #themeform {
+	font-size: calc(8px + 0.5vw + 0.5vh);
+}
+
+
+#maxlayer, #themeform, #saving {
+	bottom: 0;
+}
+
+#maxlayer {
+	position: absolute;
+	right: 0;
+}
+
+#themeform {
+	max-width: 120px;
+	width: calc(120px + 2vw);
 }
 
 #layer {
@@ -62,6 +224,7 @@ button:focus {
 }
 
 #coin {
+	margin-bottom: 5px; 
 	font-size: calc(38px + 1vw);
 	text-align: center;
 	width: 100%;
@@ -98,14 +261,6 @@ button:focus {
 	font-size: 18px;
 }
 
-/*#achievements {
-}*/
-
-/*[theme="fancy"]:not(button) {
-	font: italic 20px "Fira Sans", serif;
+#about {
+	text-align: center;
 }
-
-[theme="fancy"] button {
-	font: italic 14px "Fira Sans", serif;
-}
-*/

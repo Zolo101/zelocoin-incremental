@@ -1,5 +1,6 @@
 # zelocoin-incremental
-The epic and amazing Zelocoin Incremental Game. (1.2)
+
+The epic and amazing Zelocoin Incremental Game.
 
 Please read the [changelog](https://github.com/Zolo101/zelocoin-incremental/blob/master/src/changelog.txt) for update information.
 
