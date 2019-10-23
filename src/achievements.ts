@@ -32,6 +32,20 @@ export interface AchievementInfo {
 	image?: string;
 }
 
+export var achievement14 = new Achievement({
+	name:"A Pretty Good Investment",
+	description:"Buy your 2 zelocoins on your first layer.",
+	image: "AGOODINVESTMENT",
+	achieved:false,
+	almost:false,
+	announced:false
+}); export var ae14 = new AchievementEffect({
+	effect:function(){
+		if (ZIC.layers.length >= 2) {
+			achievement14.ainfo.achieved = true;
+		}
+	} 
+});
 export var achievement6 = new Achievement({
 	name:"It Begins",
 	description:"Buy your first second layer.",
@@ -85,7 +99,7 @@ export var achievement7 = new Achievement({
 export var ae7 = new AchievementEffect({effect:function(){}});
 export var achievement10 = new Achievement({
 	name:"Prestige",
-	description:"Prestige (and gain at least 1 zinc or zirconium)",
+	description:"Prestige (and gain at least 1 zinc)",
 	image:"PRESTIGE",
 	achieved:false,
 	almost:false,
@@ -154,9 +168,7 @@ export var achievement3 = new Achievement({
 // 	effect:function(){
 // 		if (ZIP.zirconium >= 1) {
 // 			achievement10.ainfo.achieved = true;
-// 		}
-// 	}
-// });
+// 		}.
 export var achievement12 = new Achievement({
 	name:"Prestige Expert",
 	description:"Prestige over 5 Times.",
@@ -165,6 +177,20 @@ export var achievement12 = new Achievement({
 	almost:false,
 	announced:false
 }); // this achievement is completed in the prestige.ts load function.
+export var achievement13 = new Achievement({
+	name:"ZINC-E-notation",
+	description:"Discover the e in zinc.",
+	image:"ZINCENOTATION",
+	achieved:false,
+	almost:false,
+	announced:false
+}); export var ae13 = new AchievementEffect({
+	effect:function(){
+		if (ZIC.gamedata.resources.zinc.gte(ZIC.scientificwhen)) {
+			achievement13.ainfo.achieved = true;
+		}
+	} 
+});
 export var ae12 = new AchievementEffect({effect:function(){}});
 export var achievement4 = new Achievement({
 	name:"Inanimate Infinity",
@@ -189,38 +215,40 @@ export var achievement5 = new Achievement({
 	announced:false
 }); export var ae5 = new AchievementEffect({
 	effect:function(){
-		let theme = document.body.getAttribute("theme");
-		if (theme == "hacker") {
-			achievement5.ainfo.achieved = true;
-		}
+		//var selectElement = (document.getElementById("themeform")) as HTMLSelectElement
+		//var index = selectElement.selectedIndex;
+		//let theme = document.body.getAttribute("theme");
+		//if (theme == "hacker") {
+		//	achievement5.ainfo.achieved = true;
+		//} the code is now in script.ts
 	}
 });
-export var achievement9 = new Achievement({
-	name:"debug achievement",
-	description:"Yes",
-	achieved:false,
-	almost:false,
-	announced:false
-}); export var ae9 = new AchievementEffect({
-	effect:function(){
-		if (ZIC.gamedata.zelocoin.greaterThanOrEqualTo("4")) {
-			achievement9.ainfo.achieved = true;
-		}
-	}
-});
-export var achievement11 = new Achievement({
-	name:"debug achievement2",
-	description:"Yes2",
-	achieved:false,
-	almost:false,
-	announced:false
-}); export var ae11 = new AchievementEffect({
-	effect:function(){
-		if (ZIC.gamedata.zelocoin.greaterThanOrEqualTo("4")) {
-			achievement11.ainfo.achieved = true;
-		}
-	}
-});
+// export var achievement9 = new Achievement({
+// 	name:"debug achievement",
+// 	description:"Yes",
+// 	achieved:false,
+// 	almost:false,
+// 	announced:false
+// }); export var ae9 = new AchievementEffect({
+// 	effect:function(){
+// 		if (ZIC.gamedata.zelocoin.greaterThanOrEqualTo("4")) {
+// 			achievement9.ainfo.achieved = true;
+// 		}
+// 	}
+// });
+// export var achievement11 = new Achievement({
+// 	name:"debug achievement2",
+// 	description:"Yes2",
+// 	achieved:false,
+// 	almost:false,
+// 	announced:false
+// }); export var ae11 = new AchievementEffect({
+// 	effect:function(){
+// 		if (ZIC.gamedata.zelocoin.greaterThanOrEqualTo("4")) {
+// 			achievement11.ainfo.achieved = true;
+// 		}
+// 	}
+// });
 
 
 
@@ -253,7 +281,9 @@ export function AchievementCheck() {
 				 	direction: 'alternate',
 				});
 				achievements[i].announced = true;
-				LoadAchievements();
+				if (document.getElementById("layer").getAttribute("category") == "achievements") {
+					LoadAchievements();
+				}
 			}	
 			//console.log(achievements[i].name);
 		}
@@ -276,11 +306,11 @@ export function LoadAchievements() {
 	//console.log(ZIA.completedAchievements);
 	//console.log(ZIA.achievementsAlmost);
 	//console.log(ZIA.achievements);
-	if (document.getElementById("alert").getAttribute("category") == ZIM.achievementsAlert.ainfo.categoryid) {
+	if (document.getElementById("layer").getAttribute("category") == ZIM.achievementsAlert.ainfo.categoryid) {
 	let achievementscontainer = new ZIC.Element({
 		type: "div",
 		id: "achievementContainer",
-		append: "alert",
+		append: "layer",
 	})
 	for (var i = 0; i < achievements.length; i++) {
 		let achievementdiv = new ZIC.Element({
@@ -326,12 +356,13 @@ export function LoadAchievements() {
 		})
 	}
 
-	document.getElementById("alert").appendChild(document.getElementById("achievementContainer"));
+	document.getElementById("layer").appendChild(document.getElementById("achievementContainer"));
 	}
 }
 
 export function ChangeAchievements(variable,changeto) { // mostly for saving/loading
 	completedAchievements = [];
+	console.log(changeto);
 	for (var i = 0; i < achievements.length; ++i) {
 		if (achievements[i] != undefined) {
 			variable[i] = changeto[i];

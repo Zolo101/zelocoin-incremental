@@ -7,20 +7,26 @@ import * as ZIM from "./script"; // Zelo Incremental Main File
 import * as ZIP from "./prestige"; // Zelo Incremental Prestige File
 import * as ZAL from "./alert"; // Zelo Alert File
 
-export const scientific = new ADNotations.ScientificNotation();
-
 export var layers = [];
-export var gamedata = {
+export var gamedata = { // Keep everything in one spot
 	zelocoin: new Decimal(2),
 	ps: new Decimal(0),
 	maxlayer: new Decimal(5),
 	coinboost: new Decimal(1),
-	prestiges: new Decimal(0)
+	prestiges: new Decimal(0),
+	resources: {
+		zinc: new Decimal(0),
+	},
+	zincshop: [],
 }
 
+export var keys = {};
+window.onkeyup = function(e) { keys[e.keyCode] = false; }
+window.onkeydown = function(e) { keys[e.keyCode] = true; }
+
 export var buffer = new Decimal(0);
-export const VERSION = "1.3beta1";
-export const SAVEVERSION = "1.1"; // when changes will disturb the saving/loading
+export const VERSION = "1.3beta2";
+export const SAVEVERSION = "1.2"; // when changes will disturb the saving/loading
 
 export var pshopbuttons = [];
 
@@ -45,6 +51,13 @@ export class Category {
 export class Layer {
 	constructor(public linfo: LayerInfo) {
 		linfo.percent = new Decimal(1);
+		//let layerbutton = new Element({
+		//	type: "button",
+		//	append: "layer",
+		//	id: "layer" + linfo.id,
+		//	innerHTML: "<b>" + linfo.amount + "</b><br>Layer " + linfo.id + "<br>" + DecimalFormat(linfo.cost) + " Zelocoin",
+		//	onclick: function(){LayerCheck(linfo)}
+		//})
 		let layerbutton = document.createElement("button");
 		document.getElementById("layer").appendChild(layerbutton);
 		layerbutton.id = "layer" + linfo.id;
@@ -73,7 +86,7 @@ export function LayerCheck(linfo: LayerInfo) {
 		window.alert("You've reached the max layer! Increase the max layer in the Prestige Shop.");
 		return;
 	}
-	if (gamedata.zelocoin.greaterThanOrEqualTo(linfo.cost)) {
+	if (gamedata.zelocoin.gte(linfo.cost)) {
 		gamedata.zelocoin = gamedata.zelocoin.minus(linfo.cost);
 		linfo.amount = linfo.amount.plus(1);
 		linfo.amount.toNumber();
@@ -84,6 +97,16 @@ export function LayerCheck(linfo: LayerInfo) {
 		UpdateLayer(linfo);
 		UpdateZelocoins();
 	}
+}
+
+
+export function RespawnLayers() {
+	for (let i = 0; i < layers.length; i++) {
+		let layerbutton = document.createElement("button");
+		document.getElementById("layer").appendChild(layerbutton);
+		layerbutton.id = "layer" + layers[i].linfo.id;
+		layerbutton.innerHTML = "<b>" + df(layers[i].linfo.amount) + "</b><br>Layer " + layers[i].linfo.id + "<br>" + df(layers[i].linfo.cost) + " Zelocoin";
+		layerbutton.onclick = function(){LayerCheck(layers[i].linfo)};}
 }
 
 export interface LayerInfo {
@@ -113,18 +136,21 @@ export function Save(auto?: boolean) {
 	//if (!auto) {
 		if (window.confirm("Are you sure you want to save?")) { 
 			var selectElement = (document.getElementById("themeform")) as HTMLSelectElement
-			var index = selectElement.selectedIndex;
+			var themeindex = selectElement.selectedIndex;
+			var selectElement1 = (document.getElementById("notationform")) as HTMLSelectElement
+			var notationindex = selectElement1.selectedIndex;
 
 			localStorage.setItem("gamedata",JSON.stringify(gamedata));
 			localStorage.setItem("layers",JSON.stringify(layers));
 
-			localStorage.setItem("zinc_Temp",JSON.stringify(ZIM.zinc));
-			localStorage.setItem("zirconium_Temp",JSON.stringify(ZIM.zirconium));
+			localStorage.setItem("zinc_Temp",JSON.stringify(gamedata.resources.zinc));
+			// localStorage.setItem("zirconium_Temp",JSON.stringify(ZIM.zirconium));
 	
 			localStorage.setItem("achievements",JSON.stringify(ZIA.achievements));
 			//console.log(ZIA.achievements);
 			localStorage.setItem("completedAchievements",JSON.stringify(ZIA.completedAchievements));
-			localStorage.setItem("theme",index.toString());	
+			localStorage.setItem("theme",themeindex.toString());
+			localStorage.setItem("notation",notationindex.toString());
 			localStorage.setItem("version",SAVEVERSION); // remember to change this each version	
 		}
 	/*} else { // bad bad bad bad
@@ -155,19 +181,20 @@ export function Load() {
 	if (localStorage.getItem("version") != SAVEVERSION) {
 			window.alert("The save-version your save is on is '" + localStorage.getItem("version") + "', although the current save-version is '" + SAVEVERSION + "'. Things may/may not work in your save. To fix this, press the save button to update the save-version.");
 	}
-	var selectElement = (document.getElementById("themeform")) as HTMLSelectElement
-	var index = selectElement.selectedIndex;
-	document.getElementById("layer").innerHTML = "";
-
-	var zincP = JSON.parse(localStorage.getItem("zinc_Temp"));
-	console.log(zincP);
-	zincP.ic.amount = new Decimal(zincP.ic.amount);
-	ZIM.Zincc(ZIM.zinc,zincP);
-	var zirconiumP = JSON.parse(localStorage.getItem("zirconium_Temp"));
-	console.log(zirconiumP);
-	zirconiumP.ic.amount = new Decimal(zirconiumP.ic.amount);
-	ZIM.Zirconiumc(ZIM.zirconium,zirconiumP);
-	console.log(ZIM.zirconium);
+	//var selectElement = (document.getElementById("themeform")) as HTMLSelectElement
+	//var index = selectElement.selectedIndex;
+	var selectElement1 = (document.getElementById("notationform")) as HTMLSelectElement
+	var notationindex = selectElement1.selectedIndex;
+	ZIM.ChangeNotation(Number(localStorage.getItem("notation")));
+	//var zincP = JSON.parse(localStorage.getItem("zinc_Temp"));
+	//console.log(zincP);
+	//zincP.ic.amount = new Decimal(zincP.ic.amount);
+	//ZIM.Zincc(gamedata.resources.zinc,zincP);
+	//var zirconiumP = JSON.parse(localStorage.getItem("zirconium_Temp"));
+	//console.log(zirconiumP);
+	//zirconiumP.ic.amount = new Decimal(zirconiumP.ic.amount);
+	// ZIM.Zirconiumc(ZIM.zirconium,zirconiumP);
+	// console.log(ZIM.zirconium);
 
 	gamedata = JSON.parse(localStorage.getItem("gamedata"));
 
@@ -175,13 +202,23 @@ export function Load() {
 	gamedata.ps = new Decimal(gamedata.ps);
 	gamedata.zelocoin = new Decimal(gamedata.zelocoin);
 	gamedata.maxlayer = new Decimal(gamedata.maxlayer);
+	gamedata.prestiges= new Decimal(gamedata.prestiges);
+
+	gamedata.resources.zinc = new Decimal(gamedata.resources.zinc);
+	document.getElementById("zincsay").innerHTML = "You have " + gamedata.resources.zinc + " zinc.";
 
 	layers = JSON.parse(localStorage.getItem("layers"));
 	for (let i = 0; i < layers.length; ++i) {
 			layers[i].linfo.amount = new Decimal(layers[i].linfo.amount);
 			layers[i].linfo.cost = new Decimal(layers[i].linfo.cost);
 			if (document.getElementById("layer"+layers[i].linfo.id) == null) {
-				layers[i] = new Layer({id:layers[i].linfo.id,cost: new Decimal(layers[i].linfo.cost),amount:new Decimal(layers[i].linfo.amount)});
+				layers[i].linfo = {
+					id: layers[i].linfo.id,
+					cost: new Decimal(layers[i].linfo.cost),
+					amount: new Decimal(new Decimal(layers[i].linfo.amount)),
+					percent: new Decimal(layers[i].linfo.percent)
+				}
+					//new Layer({id:layers[i].linfo.id,cost: new Decimal(layers[i].linfo.cost),amount:new Decimal(layers[i].linfo.amount)});
 				//console.log(layers[i].linfo);
 			}
 	}
@@ -202,9 +239,9 @@ export function Load() {
 
 	document.getElementById("categoryachievements").innerHTML = "Achievements " + ZIA.completedAchievements.length + "/" + ZIA.achievements.length;
 	UpdateZelocoins();
-	if (!ZIA.achievements[3].achieved) { // keep an eye out for this
-			ZIA.achievements[3].achieved = true;
-			console.log(ZIA.achievements[3].achieved);
+	if (!ZIA.achievements[4].achieved) { // keep an eye out for this
+			ZIA.achievements[4].achieved = true;
+			console.log(ZIA.achievements[4].achieved);
 			ZIA.AchievementCheck();
 	}
 }
@@ -213,17 +250,9 @@ export function Tick() {
 	gamedata.ps = new Decimal(0);
 	for (var i = layers.length-2; i >= 0; i--) {
 		let flinfo = layers[i].linfo;
-		// let color1 = new Decimal(221)
-		// let color2 = new Decimal(247);
-		// let color1d = color1.div(flinfo.percent);
-		// console.log(color1d.toString());
-		// let color2d = color1.div(flinfo.percent);
-		// console.log(color2d.toString());
 		//console.log(flinfo);
 		buffer = buffer.plus(flinfo.amount).times(flinfo.percent);
 		//console.log("layer" + flinfo.id);
-		// let gradient = "linear-gradient(0deg, rgba(" + color1d.toString() + ",221," + color1d.toString() + ",1) 0%, rgba(" + color2d.toString() + ",247," + color2d.toString() + ",1) 100%);";
-		// document.getElementById("layer" + flinfo.id).style.background = gradient;
 		//console.log(document.getElementById("layer" + flinfo.id).style.background);
 		//buffer = buffer.times(flinfo.amount**10); //quick and fast numbers, for debugging
 		if (i != layers.length-1) {
@@ -235,33 +264,42 @@ export function Tick() {
 	}
 	// console.log(buffer);
 	// console.log(layers);
-	gamedata.ps = gamedata.ps.plus(buffer).times(ZIM.zinc.ic.amount.div(100).plus(1)).times(ZIM.zincboost);
-	gamedata.zelocoin = gamedata.zelocoin.plus(gamedata.ps);
+	gamedata.ps = gamedata.ps.plus(buffer).times(gamedata.resources.zinc.div(100).times(ZIM.zincboost).plus(1));
+	//gamedata.zelocoin = gamedata.zelocoin.plus(gamedata.ps);
 	UpdateZelocoins();
 	buffer = new Decimal(0);
 }
 
+export function UpdatePS() {
+	gamedata.zelocoin = gamedata.zelocoin.plus(gamedata.ps.div(ZIM.gtnth*2));
+	// console.log(gamedata.ps);
+	// console.log(gamedata.zelocoin);
+	UpdateZelocoins();
+}
+
 export function UpdateLayer(linfo: LayerInfo) {
-	if (linfo.percent.gt(1)) {
-		document.getElementById("layer"+linfo.id).innerHTML = "<span id='boost'>(⟵ x" + df(linfo.percent) + ") </span><b>" + df(linfo.amount) + "</b><br>Layer " + linfo.id + "<br>" + df(linfo.cost) + " Zelocoin";
-	} else {
-		document.getElementById("layer"+linfo.id).innerHTML = "<b>" + df(linfo.amount) + "</b><br>Layer " + linfo.id + "<br>" + df(linfo.cost) + " Zelocoin";
+	if (document.getElementById("layer").getAttribute("category") == "layercategory") {
+		if (linfo.percent.gt(1)) {
+			document.getElementById("layer"+linfo.id).innerHTML = "<span id='boost'>(⟵ x" + df(linfo.percent) + ") </span><b>" + df(linfo.amount) + "</b><br>Layer " + linfo.id + "<br>" + df(linfo.cost) + " Zelocoin";
+		} else {
+			document.getElementById("layer"+linfo.id).innerHTML = "<b>" + df(linfo.amount) + "</b><br>Layer " + linfo.id + "<br>" + df(linfo.cost) + " Zelocoin";
+		}
 	}
 }
 
 export function UpdateZelocoins() {
 	document.getElementById("coin").innerHTML = df(gamedata.zelocoin.floor()) + " zelocoins";
-	if (ZIM.zinc.ic.amount.eq(0)) {
-		document.getElementById("ps").innerHTML = "You are making " + df(gamedata.ps) + " zelocoins.";
+	if (gamedata.resources.zinc.eq(0)) {
+		document.getElementById("ps").innerHTML = "You are making " + df(gamedata.ps) + " zelocoins per second.";
 	} else {
-		document.getElementById("ps").innerHTML = "You are making " + df(gamedata.ps) + " (x" + ZIM.zinc.ic.amount.div(100).plus(1).times(ZIM.zincboost).toFixed(2) + ") zelocoins.";
+		document.getElementById("ps").innerHTML = "You are making " + df(gamedata.ps) + " (x" + gamedata.resources.zinc.div(100).plus(1).times(ZIM.zincboost).toFixed(2) + ") zelocoins per second.";
 	}
 }
 
 export function DecimalFormat(decimal: Decimal) {
 	if(decimal.greaterThanOrEqualTo(scientificwhen)) {
-		return scientific.format(decimal,2,0);
-	} else {return decimal.toNumber()};
+		return ZIM.usingNotation.format(decimal,2,0);
+	} else {return decimal.toString()};
 }
 
 export function PrestigeReset() { // this shouldn't be a function

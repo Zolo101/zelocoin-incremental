@@ -1,7 +1,7 @@
 button {
-	background-color: #666;
+	background: #666 !important;
 	font-family: monospace;
-	border: none;
+	border: none !important;
 }
 
 button:hover {
@@ -22,7 +22,7 @@ button:hover {
 	text-shadow: none;
 }
 
-:not(.tabulator-col-title,.tabulator-cell) {
+:not(button) {
 	color: lime;
 	font-family: monospace;
 }
@@ -56,6 +56,11 @@ select {
 	color: #AAA;
 }
 
-#zirconium {
+.achievementitle {
 	color: #999;
+	font-family: monospace;
+}
+
+.psdiv p {
+	color: #000 !important;
 }

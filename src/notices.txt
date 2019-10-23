@@ -1,13 +1,7 @@
-The achievement & layer scrollbar now changes color and shape depending on
-theme. This uses experimental webkit stuff so this may or may not show in 
-your browser. If you use Chrome or Firefox or Safari (any browser that uses webkit), chances are it will work.
-
-Categories uses a CSS property called "backdrop-filter" which dims everything
-behind you when you view a category. Unfortunely, this property is only supported
-in Edge 17, Chrome 76 & Safari (ios & mac) 9. This means Firefox does not support this yet.
-If you wanna know if your browser supports this, check https://caniuse.com/#feat=css-backdrop-filter
-
-IF YOU ARE ON SAFARI (ios), CHANCES ARE THE BUTTON TEXT ARE MOST LIKELY CLIPPED DUE TO HOW SAFARI
-RENDERS THE BUTTONS. IF THIS HAPPENS, TRY CHROME.
-
-Want to help the development of this game? Goto https://github.com/Zolo101/zelocoin-incremental and see what you could help me with! :)
+Dont try playing this on IE...<br><br>
+The #other div uses "-webkit-box". This is supported in most modern browsers, though Firefox needs to be on version 67+ Check if your browswer supports it at
+<a target="_blank" href="https://caniuse.com/#feat=css-line-clamp">https://caniuse.com/#feat=css-line-clamp</a>.<br><br>								
+The achievement & layer scrollbar now changes color and shape depending on																				
+theme. This uses experimental webkit stuff so this may or may not show in 																				
+your browser. If you use Chrome or Firefox or Safari (any browser that uses webkit), chances are it will work.<br><br>									
+Want to help the development of this game? Goto <a target="_blank" href="https://github.com/Zolo101/zelocoin-incremental">https://github.com/Zolo101/zelocoin-incremental</a> and see what you could help me with! :)

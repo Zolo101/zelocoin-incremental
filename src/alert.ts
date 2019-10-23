@@ -1,8 +1,8 @@
 import * as ZIC from "./construction"; // Zelo Incremental Classes and Functions File
-import * as ZIN from "./inventory"; // Zelo Inventory File
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
 
-export const alertdiv = document.getElementById("alert");
+//export const alertdiv = document.getElementById("alert");
+export const alertdiv = document.getElementById("layer");
 export var alertlist = []; // Where alert html is stored
 
 export class Alert {

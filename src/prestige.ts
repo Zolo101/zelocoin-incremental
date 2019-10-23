@@ -1,6 +1,5 @@
 import * as ZIC from "./construction"; // Zelo Incremental Classes and Functions File
 import * as ZIA from "./achievements"; // Zelo Incremental Achievements File
-import * as ZIN from "./inventory"; // Zelo Inventory File
 import * as ZIM from "./script"; // Zelo Incremental Main File
 import * as ZAL from "./alert"; // Zelo Alert File
 
@@ -40,14 +39,14 @@ export function LoadPrestigeCategory() {
 	let prestigediv = new ZIC.Element({
 		type: "div",
 		id: "prestigediv",
-		append: "alert",
+		append: "layer",
 	})
 
 	let prestigetext = new ZIC.Element({
 		type: "p",
 		id: "prestigetext",
 		append: "prestigediv",
-		innerHTML: "By prestiging you will gain 0 Zinc & 0 Zirconium."
+		innerHTML: "By prestiging you will gain 0 Zinc."
 	})
 
 	let prestigebutton = new ZIC.Element({
@@ -58,14 +57,14 @@ export function LoadPrestigeCategory() {
 		onclick: function(){Prestige()},
 	})
 
-	document.getElementById("alert").appendChild(document.getElementById("prestigediv"));
+	document.getElementById("layer").appendChild(document.getElementById("prestigediv"));
 }
 
-export function LoadPrestigeShopCategory() {
+export function LoadZincCategory() {
 	let shopitemdiv = new ZIC.Element({
 		type: "div",
 		id: "pshop",
-		append: "alert",
+		append: "layer",
 	})
 	let shopitemhelp = new ZIC.Element({
 		type: "h2",
@@ -93,38 +92,40 @@ export function LoadPrestigeShopCategory() {
 			id: "psdivcost" + i,
 			class: "psdivscost",
 			append: "psdiv" + i,
-			innerHTML: ZIC.df(ZIC.pshopbuttons[i].cost) + " " + ZIC.pshopbuttons[i].costresource.ic.name,
+			innerHTML: ZIC.df(ZIC.pshopbuttons[i].cost) + " Zinc", // + IC.pshopbuttons[i].costresource,
 		})
 		if (ZIC.pshopbuttons[i].color) {
 			document.getElementById("psdiv" + i).style.backgroundColor = ZIC.pshopbuttons[i].color;
 		}
 	}
     // document.getElementById("pshop").style.backgroundColor = "#7a6f99";
-	document.getElementById("alert").appendChild(document.getElementById("pshop"));
+	document.getElementById("layer").appendChild(document.getElementById("pshop"));
 }
 
 export function Prestige() {
 	if (window.confirm("Are you sure you want to Prestige? You will lose your zelocoins & layers.")) {
-		console.log(ZIM.zirconium.ic.amount);
-		ZIM.zinc.ic.amount = ZIM.zinc.ic.amount.plus(zincPotential);
-		ZIM.zirconium.ic.amount = ZIM.zirconium.ic.amount.plus(zirconiumPotential);
+		// console.log(ZIM.zirconium.ic.amount);
+		ZIC.gamedata.resources.zinc = ZIC.gamedata.resources.zinc.plus(zincPotential);
+		document.getElementById("zincsay").innerHTML = "You have " + ZIC.gamedata.resources.zinc + " zinc."
+		// ZIM.zirconium.ic.amount = ZIM.zirconium.ic.amount.plus(zirconiumPotential);
 
-		zincPotential = new Decimal(0);
-		zirconiumPotential = new Decimal(0);
-		ZIC.CoinBoost(ZIM.zinc.ic.amount);
+		ZIC.gamedata.prestiges = ZIC.gamedata.prestiges.add(1);
+		//zirconiumPotential = new Decimal(0);
+		ZIC.CoinBoost(ZIC.gamedata.resources.zinc);
 		//console.log(ZIC.coinboost);
 		ZIC.PrestigeReset();
-		if (!ZIA.achievements[4].achieved) { // Prestige achievement
-			ZIA.achievements[4].achieved = true;
-			console.log(ZIA.achievements[4].achieved);
+		if (!ZIA.achievements[5].achieved && zincPotential.gte(1)) { // Prestige achievement
+			ZIA.achievements[5].achieved = true;
+			console.log(ZIA.achievements[5].achieved);
 			ZIA.AchievementCheck();
 		}
-		if (!ZIA.achievements[11].achieved) {
+		if (!ZIA.achievements[8].achieved) {
 			if (ZIC.gamedata.prestiges.gte(5)) {
-				ZIA.achievements[11].achieved = true;
+				ZIA.achievements[8].achieved = true;
 				ZIA.AchievementCheck();
 			}
 		}
+		zincPotential = new Decimal(0);
 		console.log("Prestige'd");
 		ZAL.CloseAlert();
 		anime({
@@ -139,20 +140,22 @@ export function Prestige() {
 export function UpdateGains() {
 	let zinc_zero = ZIC.df(zincPotential);
 	let zirconium_zero = ZIC.df(zirconiumPotential);
-	let zinc_format = ZIC.df(ZIM.zinc.ic.amount);
-	let zirconium_format = ZIC.df(ZIM.zirconium.ic.amount);
+	let zinc_format = ZIC.df(ZIC.gamedata.resources.zinc);
+	// let zirconium_format = ZIC.df(ZIM.zirconium.ic.amount);
 	zincPotential = new Decimal(0);
-	zirconiumPotential = new Decimal(0);
+	// zirconiumPotential = new Decimal(0);
 
-	zincPotential = zincPotential.add(ZIC.gamedata.zelocoin.e).floor(); // dividedBy(1e+10)
-	zirconiumPotential = zirconiumPotential.add(ZIC.gamedata.ps).dividedBy(1e+8).floor();
-	if (document.getElementById("alert").getAttribute("category") == (ZIM.prestigecategoryalert.ainfo.categoryid)) {
+	if (ZIC.gamedata.zelocoin.e >= 10) {
+		zincPotential = zincPotential.add(ZIC.gamedata.zelocoin.e-9).floor(); // dividedBy(1e+10)
+	}
+	// zirconiumPotential = zirconiumPotential.add(ZIC.gamedata.ps).dividedBy(1e+8).floor();
+	if (document.getElementById("layer").getAttribute("category") == (ZIM.prestigecategoryalert.ainfo.categoryid)) {
 		UpdatePrestigeElements();
 	}
 }
 
 export function UpdatePrestigeElements() {
-	document.getElementById("prestigetext").innerHTML = "By prestiging you will gain " + ZIC.df(zincPotential) + " Zinc & " + ZIC.df(zirconiumPotential) + " Zirconium.";
+	document.getElementById("prestigetext").innerHTML = "By prestiging you will gain " + ZIC.df(zincPotential) + " Zinc.";
 }
 
 export function LoadPSItem(PSBI: PSBInfo) {
@@ -161,14 +164,17 @@ export function LoadPSItem(PSBI: PSBInfo) {
 	let itemtitle = document.getElementById("psdivtitle" + PSBI.id);
 	let itemcost = document.getElementById("psdivcost" + PSBI.id);
 	if (!PSBI.open) {
+		if (ZIC.keys["16"]) {
+			BuyPSBI(PSBI);
+			return;
+		}
 		PSBI.open = true;
-		item.style.position = "absolute";
+		//item.style.position = "absolute";
 		item.style.width = "90%";
 		item.style.height = "60%";
 
 		itemtitle.style.fontSize = "calc(40px + 0.5vw)";
 		itemcost.style.fontSize = "calc(25px + 0.5vw)";
-
 
 		let psdivdescription = new ZIC.Element({
 			type: "p",
@@ -184,29 +190,9 @@ export function LoadPSItem(PSBI: PSBInfo) {
 			class: "psdivbutton",
 			append: itemid,
 			onclick: function(){
-				//PSBI.function();
-				//console.log(PSBI.costresource.ic.amount);
+				//console.log(PSBI.costresource);
 				//console.log(PSBI.cost);
-				if (PSBI.costresource.ic.amount.greaterThanOrEqualTo(PSBI.cost)) {
-					PSBI.costresource.ic.amount.minus(PSBI.cost);
-					PSBI.function();
-					anime({
-						targets: item,
-						background: "rgb(152,251,152)",
-						duration: 2000,
-						easing: "easeOutCirc",
-						direction: "alternate",
-					})
-					itemcost.innerHTML = ZIC.df(ZIC.pshopbuttons[PSBI.id].cost) + " " + ZIC.pshopbuttons[PSBI.id].costresource.ic.name;
-				} else {
-					anime({
-						targets: item,
-						background: "rgb(250,128,114)",
-						duration: 2000,
-						easing: "easeOutCirc",
-						direction: "alternate",
-					})
-				}
+				BuyPSBI(PSBI);
 			},
 			innerHTML: "Buy!",
 		})
@@ -216,8 +202,36 @@ export function LoadPSItem(PSBI: PSBInfo) {
 		document.getElementById("psdivbutton" + PSBI.id).remove();
 		itemcost.style.fontSize = "initial";
 		itemtitle.style.fontSize = "initial";
-		item.style.position = "initial";
+		//item.style.position = "initial";
 		item.style.width = "calc(96px + 1vw)";
 		item.style.height = "calc(64px + 1vw)";
+	}
+}
+
+export function BuyPSBI(PSBI: PSBInfo) {
+	let itemid = "psdiv" + PSBI.id;
+	let item = document.getElementById(itemid);
+	let itemtitle = document.getElementById("psdivtitle" + PSBI.id);
+	let itemcost = document.getElementById("psdivcost" + PSBI.id);
+	if (ZIC.gamedata.resources.zinc.gte(PSBI.cost)) { // hardcoded zinc is temporary
+		ZIC.gamedata.resources.zinc = ZIC.gamedata.resources.zinc.minus(PSBI.cost);
+		document.getElementById("zincsay").innerHTML = "You have " + ZIC.df(ZIC.gamedata.resources.zinc) + " zinc.";
+		PSBI.function();
+		anime({
+			targets: item,
+			background: "rgb(152,251,152)",
+			duration: 2000,
+			easing: "easeOutCirc",
+			direction: "alternate",
+		})
+		itemcost.innerHTML = ZIC.df(ZIC.pshopbuttons[PSBI.id].cost) + " Zinc"// + ZIC.pshopbuttons[PSBI.id].costresource.ic.name;
+	} else {
+		anime({
+			targets: item,
+			background: "rgb(250,128,114)",
+			duration: 2000,
+			easing: "easeOutCirc",
+			direction: "alternate",
+		})
 	}
 }

@@ -1,6 +1,6 @@
 button {
-	background: lightgray;
-	border: 1px gray;
+	background: lightgray !important;
+	border: 1px gray !important;
 }
 
 button:hover {

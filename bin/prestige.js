@@ -19,13 +19,13 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
         var prestigediv = new ZIC.Element({
             type: "div",
             id: "prestigediv",
-            append: "alert"
+            append: "layer"
         });
         var prestigetext = new ZIC.Element({
             type: "p",
             id: "prestigetext",
             append: "prestigediv",
-            innerHTML: "By prestiging you will gain 0 Zinc & 0 Zirconium."
+            innerHTML: "By prestiging you will gain 0 Zinc."
         });
         var prestigebutton = new ZIC.Element({
             type: "button",
@@ -34,14 +34,14 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
             innerHTML: "Prestige!",
             onclick: function () { Prestige(); }
         });
-        document.getElementById("alert").appendChild(document.getElementById("prestigediv"));
+        document.getElementById("layer").appendChild(document.getElementById("prestigediv"));
     }
     exports.LoadPrestigeCategory = LoadPrestigeCategory;
-    function LoadPrestigeShopCategory() {
+    function LoadZincCategory() {
         var shopitemdiv = new ZIC.Element({
             type: "div",
             id: "pshop",
-            append: "alert"
+            append: "layer"
         });
         var shopitemhelp = new ZIC.Element({
             type: "h2",
@@ -69,7 +69,7 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
                 id: "psdivcost" + i,
                 "class": "psdivscost",
                 append: "psdiv" + i,
-                innerHTML: ZIC.df(ZIC.pshopbuttons[i].cost) + " " + ZIC.pshopbuttons[i].costresource.ic.name
+                innerHTML: ZIC.df(ZIC.pshopbuttons[i].cost) + " Zinc"
             });
             if (ZIC.pshopbuttons[i].color) {
                 document.getElementById("psdiv" + i).style.backgroundColor = ZIC.pshopbuttons[i].color;
@@ -79,30 +79,32 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
             _loop_1(i);
         }
         // document.getElementById("pshop").style.backgroundColor = "#7a6f99";
-        document.getElementById("alert").appendChild(document.getElementById("pshop"));
+        document.getElementById("layer").appendChild(document.getElementById("pshop"));
     }
-    exports.LoadPrestigeShopCategory = LoadPrestigeShopCategory;
+    exports.LoadZincCategory = LoadZincCategory;
     function Prestige() {
         if (window.confirm("Are you sure you want to Prestige? You will lose your zelocoins & layers.")) {
-            console.log(ZIM.zirconium.ic.amount);
-            ZIM.zinc.ic.amount = ZIM.zinc.ic.amount.plus(exports.zincPotential);
-            ZIM.zirconium.ic.amount = ZIM.zirconium.ic.amount.plus(exports.zirconiumPotential);
-            exports.zincPotential = new Decimal(0);
-            exports.zirconiumPotential = new Decimal(0);
-            ZIC.CoinBoost(ZIM.zinc.ic.amount);
+            // console.log(ZIM.zirconium.ic.amount);
+            ZIC.gamedata.resources.zinc = ZIC.gamedata.resources.zinc.plus(exports.zincPotential);
+            document.getElementById("zincsay").innerHTML = "You have " + ZIC.gamedata.resources.zinc + " zinc.";
+            // ZIM.zirconium.ic.amount = ZIM.zirconium.ic.amount.plus(zirconiumPotential);
+            ZIC.gamedata.prestiges = ZIC.gamedata.prestiges.add(1);
+            //zirconiumPotential = new Decimal(0);
+            ZIC.CoinBoost(ZIC.gamedata.resources.zinc);
             //console.log(ZIC.coinboost);
             ZIC.PrestigeReset();
-            if (!ZIA.achievements[4].achieved) { // Prestige achievement
-                ZIA.achievements[4].achieved = true;
-                console.log(ZIA.achievements[4].achieved);
+            if (!ZIA.achievements[5].achieved && exports.zincPotential.gte(1)) { // Prestige achievement
+                ZIA.achievements[5].achieved = true;
+                console.log(ZIA.achievements[5].achieved);
                 ZIA.AchievementCheck();
             }
-            if (!ZIA.achievements[11].achieved) {
+            if (!ZIA.achievements[8].achieved) {
                 if (ZIC.gamedata.prestiges.gte(5)) {
-                    ZIA.achievements[11].achieved = true;
+                    ZIA.achievements[8].achieved = true;
                     ZIA.AchievementCheck();
                 }
             }
+            exports.zincPotential = new Decimal(0);
             console.log("Prestige'd");
             ZAL.CloseAlert();
             anime({
@@ -117,19 +119,21 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
     function UpdateGains() {
         var zinc_zero = ZIC.df(exports.zincPotential);
         var zirconium_zero = ZIC.df(exports.zirconiumPotential);
-        var zinc_format = ZIC.df(ZIM.zinc.ic.amount);
-        var zirconium_format = ZIC.df(ZIM.zirconium.ic.amount);
+        var zinc_format = ZIC.df(ZIC.gamedata.resources.zinc);
+        // let zirconium_format = ZIC.df(ZIM.zirconium.ic.amount);
         exports.zincPotential = new Decimal(0);
-        exports.zirconiumPotential = new Decimal(0);
-        exports.zincPotential = exports.zincPotential.add(ZIC.gamedata.zelocoin.e).floor(); // dividedBy(1e+10)
-        exports.zirconiumPotential = exports.zirconiumPotential.add(ZIC.gamedata.ps).dividedBy(1e+8).floor();
-        if (document.getElementById("alert").getAttribute("category") == (ZIM.prestigecategoryalert.ainfo.categoryid)) {
+        // zirconiumPotential = new Decimal(0);
+        if (ZIC.gamedata.zelocoin.e >= 10) {
+            exports.zincPotential = exports.zincPotential.add(ZIC.gamedata.zelocoin.e - 9).floor(); // dividedBy(1e+10)
+        }
+        // zirconiumPotential = zirconiumPotential.add(ZIC.gamedata.ps).dividedBy(1e+8).floor();
+        if (document.getElementById("layer").getAttribute("category") == (ZIM.prestigecategoryalert.ainfo.categoryid)) {
             UpdatePrestigeElements();
         }
     }
     exports.UpdateGains = UpdateGains;
     function UpdatePrestigeElements() {
-        document.getElementById("prestigetext").innerHTML = "By prestiging you will gain " + ZIC.df(exports.zincPotential) + " Zinc & " + ZIC.df(exports.zirconiumPotential) + " Zirconium.";
+        document.getElementById("prestigetext").innerHTML = "By prestiging you will gain " + ZIC.df(exports.zincPotential) + " Zinc.";
     }
     exports.UpdatePrestigeElements = UpdatePrestigeElements;
     function LoadPSItem(PSBI) {
@@ -138,8 +142,12 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
         var itemtitle = document.getElementById("psdivtitle" + PSBI.id);
         var itemcost = document.getElementById("psdivcost" + PSBI.id);
         if (!PSBI.open) {
+            if (ZIC.keys["16"]) {
+                BuyPSBI(PSBI);
+                return;
+            }
             PSBI.open = true;
-            item.style.position = "absolute";
+            //item.style.position = "absolute";
             item.style.width = "90%";
             item.style.height = "60%";
             itemtitle.style.fontSize = "calc(40px + 0.5vw)";
@@ -157,30 +165,9 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
                 "class": "psdivbutton",
                 append: itemid,
                 onclick: function () {
-                    //PSBI.function();
-                    //console.log(PSBI.costresource.ic.amount);
+                    //console.log(PSBI.costresource);
                     //console.log(PSBI.cost);
-                    if (PSBI.costresource.ic.amount.greaterThanOrEqualTo(PSBI.cost)) {
-                        PSBI.costresource.ic.amount.minus(PSBI.cost);
-                        PSBI["function"]();
-                        anime({
-                            targets: item,
-                            background: "rgb(152,251,152)",
-                            duration: 2000,
-                            easing: "easeOutCirc",
-                            direction: "alternate"
-                        });
-                        itemcost.innerHTML = ZIC.df(ZIC.pshopbuttons[PSBI.id].cost) + " " + ZIC.pshopbuttons[PSBI.id].costresource.ic.name;
-                    }
-                    else {
-                        anime({
-                            targets: item,
-                            background: "rgb(250,128,114)",
-                            duration: 2000,
-                            easing: "easeOutCirc",
-                            direction: "alternate"
-                        });
-                    }
+                    BuyPSBI(PSBI);
                 },
                 innerHTML: "Buy!"
             });
@@ -191,10 +178,39 @@ define(["require", "exports", "./construction", "./achievements", "./script", ".
             document.getElementById("psdivbutton" + PSBI.id).remove();
             itemcost.style.fontSize = "initial";
             itemtitle.style.fontSize = "initial";
-            item.style.position = "initial";
+            //item.style.position = "initial";
             item.style.width = "calc(96px + 1vw)";
             item.style.height = "calc(64px + 1vw)";
         }
     }
     exports.LoadPSItem = LoadPSItem;
+    function BuyPSBI(PSBI) {
+        var itemid = "psdiv" + PSBI.id;
+        var item = document.getElementById(itemid);
+        var itemtitle = document.getElementById("psdivtitle" + PSBI.id);
+        var itemcost = document.getElementById("psdivcost" + PSBI.id);
+        if (ZIC.gamedata.resources.zinc.gte(PSBI.cost)) { // hardcoded zinc is temporary
+            ZIC.gamedata.resources.zinc = ZIC.gamedata.resources.zinc.minus(PSBI.cost);
+            document.getElementById("zincsay").innerHTML = "You have " + ZIC.df(ZIC.gamedata.resources.zinc) + " zinc.";
+            PSBI["function"]();
+            anime({
+                targets: item,
+                background: "rgb(152,251,152)",
+                duration: 2000,
+                easing: "easeOutCirc",
+                direction: "alternate"
+            });
+            itemcost.innerHTML = ZIC.df(ZIC.pshopbuttons[PSBI.id].cost) + " Zinc"; // + ZIC.pshopbuttons[PSBI.id].costresource.ic.name;
+        }
+        else {
+            anime({
+                targets: item,
+                background: "rgb(250,128,114)",
+                duration: 2000,
+                easing: "easeOutCirc",
+                direction: "alternate"
+            });
+        }
+    }
+    exports.BuyPSBI = BuyPSBI;
 });

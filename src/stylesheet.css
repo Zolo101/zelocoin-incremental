@@ -10,15 +10,22 @@
 	/* body {background-color: #20AEE3;} */ /* test to make sure it works */
 }
 
+/* @media only screen and (max-width: 500px) {
+
+} */
+
 #category-container {
 	/* border-bottom: 1px solid #999; */
 	padding: 5px;
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .category {
 	font-size: calc(12.5px + 0.5vw);
 	border: none;
-	padding: 4px 6px;
+	padding: 6px 8px;
 	margin: 2px 4px;
 }
 
@@ -43,9 +50,9 @@ button:focus {
 	position: relative;
 }
 
-*:not(#alert):not(.psdiv) {
+/* *:not(#alert):not(.psdiv) {
 	transition: all 0.4s;
-}
+} */
 
 #alert {
 	/* opacity: 0; */
@@ -73,6 +80,11 @@ button:focus {
 	flex-direction: row;
 }
 
+.achievementsdiv img {
+	min-width: 64px;
+    max-height: 64px;
+}
+
 .achievementstextdiv {
 	max-width: 100%;
 }
@@ -83,7 +95,7 @@ button:focus {
 	text-align: center;	
 } .achievementitle {text-align: center;}
 
-#verisona,#notices {font-weight: 800;}
+/* #verisona,#notices {font-weight: 800;} */
 
 #verisona:hover,#notices:hover {
 	color: #5002D9;
@@ -140,6 +152,7 @@ button:focus {
 	background-color: #666;
 	padding: 2px;
 	margin: 2px;
+	outline: 1px solid black;
 } #pshophelp {position: absolute;bottom: 0;}
 
 .psdivtitle, .psdivdesc {
@@ -150,7 +163,7 @@ button:focus {
 #main-game {
 	padding-top: calc(12%);
 	/* padding-bottom: calc(10%); */
-	border-bottom: 1px solid #999;
+	/* border-bottom: 1px solid #999; */
 	border-top: 1px solid #999;
 }
 
@@ -198,12 +211,12 @@ button:focus {
 	font-size: calc(16px + 0.5vw + 0.25vh);
 }
 
-#version, #maxlayer, #themeform {
+#version, #maxlayer, #themeform, #notationform, #zincsay {
 	font-size: calc(8px + 0.5vw + 0.5vh);
 }
 
 
-#maxlayer, #themeform, #saving {
+#maxlayer, #zincsay, #themeform, #saving {
 	bottom: 0;
 }
 
@@ -212,13 +225,18 @@ button:focus {
 	right: 0;
 }
 
+#zincsay {
+	position: absolute;
+	left: 0;
+}
+
 #themeform {
 	max-width: 120px;
 	width: calc(120px + 2vw);
 }
 
 #layer {
-	max-height: 80vh;
+	max-height: 50vh;
 	overflow-y: auto;
 	margin: 0 5px 0 5px;
 }

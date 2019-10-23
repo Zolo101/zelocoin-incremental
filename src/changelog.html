@@ -1,0 +1,173 @@
+<html><head><title>Zelocoin Changelog</title>
+<script>
+    var show = true; // change this
+    const beta = document.getElementsByClassName("beta");
+    function ShowBeta() {
+        if (show) {
+            show = false;
+            for (let i = 0; i < beta.length; i++) {
+                const element = beta[i];
+                element.style.display = "none"
+            }
+        } else {
+            show = true;
+            for (let i = 0; i < beta.length; i++) {
+                const element = beta[i];
+                element.style.display = "block"
+            }
+        };
+    }
+</script>
+<style>
+    p,h1,h2,h3,input,label {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+        display:inline;
+        background: #ADa;
+        padding: 4px;
+    }
+
+    h2 {display: inline;background: #ACa;padding: 4px;}
+
+    #upcoming {
+        display: table;
+        margin-right: auto;
+        margin-left: auto;
+        background-color: rgb(216, 191, 191);
+        padding: 2px;
+        max-width: 400px;
+    }
+
+    .beta {background-color: azure;}
+    .beta h2 {display: inline;background: #e7775b;padding: 4px;}
+
+    .info {color: slategrey;}
+    .addition {color: rgb(124, 194, 20);}
+    .removal {color: rgb(226, 70, 70);}
+</style>
+</head><body>
+<p class="info">* Info</p>
+<p class="addition">+ Addition</p>
+<p class="removal">- Removal</p>
+
+<button onclick="ShowBeta()">Show beta changelogs?</button><br><br>
+
+<div id="upcoming">
+<h3>Upcoming</h3>
+<p>• Keyboard Shortcuts (1.4)</p>
+<p>• Buy 1x & Max button (1.4)</p>
+<p>• More Prestige Shop Items (1.4)</p><br>
+<p>• Achievements that give you benefits for beating them (1.4+)</p>
+<p>• Still earn zelocoins while in other tabs (1.4+)</p>
+<p>• Stats (1.5+)</p>
+<p>• Settings (1.5+)</p>
+<p>• Zeloworld (canvas minigame, 1.5+)</p>
+<p>• Use SCSS (1.5+) </p>
+<p>• Browser Alerts that dont freeze the game (1.5+, unlikely)</p>
+<p>• Offline Progress (1.5+, unlikely)</p>
+</div><br>
+
+<div class="beta"><h2>1.3 / BETA 2 (23/10/2019)</h2>
+    <p><b>MAIN CHANGES</b></p>
+    <p class="addition">+ Changelog is more cooler</p>
+    <p class="addition">+ Mixed Scientific Notation has now been added and is now default</p>
+    <p class="addition">+ Alerts 2.0</p>
+    <p class="addition">+ 2 New Achievements: A Pretty Good Investment, ZINC-E-notation</p>
+    <p class="removal">- Removed Zirconium (It was useless)</p>
+    <p class="removal">- Removed Inventories (I might add these back once they become useful)</p>
+    <p class="info">* Prestige Shop has been renamed to Zinc Shop</p>
+    <p class="info">* Zelocoins now update x20 faster (with little to no performace loss)</p>
+    <p class="info">* Obtaining zinc now works correctly</p>
+    <p class="info">* Zinc shop is now called Zinc</p>
+    <p class="info">* Categories are now centered</p>
+    <p class="info">* x2 Child Layers now have the correct amount</p>
+    <p class="info">* Debug achievements removed</p>
+    <p class="info">* Shift-Click to buy in the zinc shop now works</p>
+    <p class="info">* Full stop added in a zinc shop item</p>
+    <p class="info">* Updated the changelogs to say 2 New achievements (Prestige & Prestige Expert)</p>
+
+    <p>The zinc shop's prices & x2 child layers do not save. This will be fixed in beta 3.</p>
+    <p>Only buy the x2 Child Layer if you want to, it will still take the zinc even if you cancel.<br>This will also be fixed in beta 3.</p>
+</div>
+
+<div class="beta"><h2>1.3 / BETA 1 (13/10/2019)</h2><br>
+    <p><b>MAIN CHANGES</b></p>
+    <p class="addition">+ Inventory</p>
+    <p class="addition">+ Prestige Shop</p>
+    <p class="addition">+ Max Layer text</p>
+    <p class="addition">+ Categories & Alerts</p>
+    <p class="addition">+ Theme changing is now a dropdown.</p>
+    <p class="addition">+ Achievement listing has been changed again, now with icons!!</p>
+    <p class="addition">+ 2 New Achievements: Prestige & Prestige Expert</p>
+    <p class="removal">- Removed 2 Achievements: Zinc Battery & Zirconium Collecter</p>
+    <p class="info">* Each zinc now gives you a 1% increase in zelocoins.</p>
+    <p><b></b>PRESTIGE SHOP ADDITIONS (most items can be brought multiple times unless it says otherwise)</b></p>
+    <p class="addition">+ x2 Child Layer. (Stackable) Permanently boosts a layer of choice by 100%. Costs 1e10 Zirconium and goes up by 10 expontents with every purchase.</p>
+    <p class="addition">+ Extra Percentage. (Stackable) Zinc will give an extra percentage in zelocoins. Costs 1e5 Zirconium and multiplys the expontent by 4 with every purchase. (so 1e5 will become 1e20)</p>
+    <br>
+    <p class="info">* YOUR SAVE IS MOST LIKELY BROKEN IF IT WAS FROM 1.2. </p>
+    <p class="info">* Your saves now no longer have missing achievements if the save was from another version.</p>
+    <p class="info">* You now need 1e10 to start gaining zinc, and 1 e (eg, e10 to e11) after that to obtain 1 zinc.</p>
+    <p class="info">* You now need 1e8 zelocoins PER SECOND to obtain zirconium.</p>
+    <br>
+    <p class="info">* You now need 4 Zirconium to buy your first max layer.</p>
+    <p class="info">* Most of the code has been moved around & optimized.</p>
+    <p class="info">* The dark theme has been slightly changed.</p>
+    <p>Want to help the development of this game? Goto https://github.com/Zolo101/zelocoin-incremental and see what you could help me with! :)</p>
+</div>
+
+<div><h1>1.2 (31/08/2019)</h1>
+    <p class="addition">+ Simple Prestige. Convert your coins into either Zinc or Zirconium for a zelocoin per second boost or to increase the max layer.</p>
+    <p class="addition">+ Favicon icon for the website.</p>
+    <p class="info">* Right now zinc & zirconium is insanely OP, so 1.2.1 will balance them out & add more things to buy.</p>
+    <p><b>How prestiges work</b></p>
+    <p>Each zinc gives you an 100% PER SECOND boost.</p>
+    <p>Zirconium can currently be used to Increase Max Layer, which allows for more zelocoins.</p>
+    <p>You need 1e10 zelocoins to obtain zinc.</p>
+    <p>You need 1e8 zelocoins PER SECOND to obtain zirconium. In order to gain the zinc/zirconium, you must prestige.</p>
+    <br>
+    <p class="info">* The CSS themes has now been seperated into files.</p>
+    <p class="info">* Send me your themes and if they are good enough, i'll add them into the game!</p>
+</div>
+
+<div><h2>1.1.3 (29/08/2019)</h2>
+    <p class="addition">+ You now start with 1 layer</p>
+    <p class="addition">+ E-notation bug with the first two layers have been fixed.</p>
+    <p class="addition">+ New Achievement (IDFB 1: Welcome Back)</p>
+    <p class="info">* Buff layer cost (cost*3 is now cost*2).</p>
+</div>
+
+<div><h2>1.1.2 (29/08/2019)</h2>
+    <p class="addition">+ Achievements are now shown in a table</p>
+    <p class="addition">+ 3 New Achievements (It Begins,Inanimate Infinity,Zelo101)</p>
+    <p class="removal">- Removed Fancy Theme</p>
+    <p class="info">* Buff layer cost (cost*3 is ACTUALLY now cost*cost).</p>
+    <p class="info">* AchievementCheck() is now every 5 seconds instead of 10</p>
+    <p class="info">* Dark Theme no longer relies on filters to make it dark. Also the made buttons & text dark-ish aswell.</p>
+    <p class="info">* Tick() now works like it should, passing 1e309 should be worry free now, the next hard limit is now 1e9e15, which is a lot... (I think it's 1e9000000000000000)</p>
+    <p class="info">* If your on "phone mode" or you have a ton of layers, css the layer div will no longer take up the whole screen.</p>
+    <p class="info">* The Achievements table do not respond to the themes yet. This should be fixed in 1.2</p>
+</div>
+
+<div><h2>1.1.1 (29/08/2019)</h2>
+    <p>• Everything is now centered</p>
+    <p>• Buff layer cost (cost*3 is now cost*cost)</p>
+    <p>• Ask before Saving and Loading</p>
+    <p>• "Phone mode" css </p>
+    <p>• Saves now have the version number (save version-checking)</p>
+</div>
+
+<div><h1>1.1 (28/08/2019)</h1>
+    <p>• Achievements</p>
+    <p>• (4 new achievements)</p>
+    <p>• Percentage on the "per second".</p>
+    <p>• Saving & Loading (localstorage)</p>
+</div>
+
+<div><h1>1.0 (27/08/2019)</h1>
+    <p>• Created the fundamentals of the game. (layers,themes,etc)</p>
+</div>
+
+</body></html>

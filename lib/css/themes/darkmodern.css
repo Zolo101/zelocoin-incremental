@@ -1,3 +1,15 @@
+/* Modern CSS */
+
+* {
+	font-family: sans-serif;
+}
+
+button {
+	border-radius: 4px;
+}
+
+/* Dark CSS */
+
 #coin {
 	color: red;
 	text-shadow: red 0 0 5px;

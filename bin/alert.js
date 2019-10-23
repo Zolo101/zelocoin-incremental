@@ -1,7 +1,8 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
-    exports.alertdiv = document.getElementById("alert");
+    //export const alertdiv = document.getElementById("alert");
+    exports.alertdiv = document.getElementById("layer");
     exports.alertlist = []; // Where alert html is stored
     var Alert = /** @class */ (function () {
         function Alert(ainfo) {
